@@ -1,0 +1,10 @@
+.env*
+
+.next
+
+#yarn
+.yarn
+.pnp*
+
+#vscode
+.vscode

@@ -1,5 +1,4 @@
 'use client'
-import "./globals.css";
 import ChatComponenet from "@/components/ChatComponent";
 import { createTheme, ThemeProvider } from "@mui/material";
 
