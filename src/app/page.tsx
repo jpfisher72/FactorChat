@@ -1,6 +1,6 @@
 'use client'
 import { Box, Button, Typography } from "@mui/material";
-
+import { ResizableBox } from "react-resizable";
 
 export default function Home() {
   return (

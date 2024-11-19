@@ -1,9 +1,10 @@
 'use client'
 import { Chat, Close, Refresh } from "@mui/icons-material";
-import { Box, Button, Fab, Fade, IconButton, Paper, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Fab, Fade, IconButton, Paper, Stack, TextField, Typography, useTheme } from "@mui/material";
 import { useChat, Message } from "ai/react"
 import { useEffect, useRef, useState } from "react";
 import Draggable from 'react-draggable';
+import { Resizable } from "re-resizable";
 
 export default function ChatComponenet() {
 
@@ -79,19 +80,25 @@ export default function ChatComponenet() {
     zIndex: 1000
   };
 
+  const theme = useTheme()
 
   return (
-    <Box height={'100vh'} width={'100vw'} position={"fixed"} top={0} left={0} sx={{pointerEvents: 'none'}}>
+    <Box height={'100vh'} width={'100vw'} position={"fixed"} top={0} left={0} sx={{ pointerEvents: 'none' }} id="outerbox">
       {/* Chat window */}
       <Draggable
         key={draggableKey}
         handle="#drag-surface"
         nodeRef={paperRef}
-        bounds="parent"
+        bounds={"parent"}
       >
         <Fade in={open}>
           <Paper elevation={5} sx={paperStyle} ref={paperRef}>
-            <Stack width={600} height={600} m={2}>
+            <Resizable
+              defaultSize={{ width: 600, height: 600 }}
+              minHeight={600}
+              minWidth={600}
+              style={{ padding: theme.spacing(2), display: 'flex', flexDirection: 'column' }}
+            >
               <Stack direction={"row"}>
                 <Typography variant="h4" flexGrow={1} id='drag-surface' sx={{ cursor: "move" }}>FactorChat</Typography>
                 <IconButton onClick={handleClose}>
@@ -133,7 +140,7 @@ export default function ChatComponenet() {
                   </Button>
                 </Stack>
               </form>
-            </Stack>
+            </Resizable>
           </Paper>
         </Fade>
       </Draggable>

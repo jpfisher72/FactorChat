@@ -1026,6 +1026,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-resizable@npm:^3":
+  version: 3.0.8
+  resolution: "@types/react-resizable@npm:3.0.8"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 10c0/77d7896703531a32e8efdf0c7208c0f6af8eadf3d8dc5fd2b5e6032ed834f4d8ea52f14ebee8b39af6fb63642bbaacf785dd9962b1f284f070a63143251315fb
+  languageName: node
+  linkType: hard
+
 "@types/react-transition-group@npm:^4.4.11":
   version: 4.4.11
   resolution: "@types/react-transition-group@npm:4.4.11"
@@ -2236,14 +2245,17 @@ __metadata:
     "@types/node": "npm:^20"
     "@types/react": "npm:^18"
     "@types/react-dom": "npm:^18"
+    "@types/react-resizable": "npm:^3"
     ai: "npm:^3.4.33"
     autoprefixer: "npm:^10.4.20"
     eslint: "npm:^8"
     eslint-config-next: "npm:15.0.3"
     next: "npm:15.0.3"
+    re-resizable: "npm:^6.10.1"
     react: "npm:19.0.0-rc-66855b96-20241106"
     react-dom: "npm:19.0.0-rc-66855b96-20241106"
     react-draggable: "npm:^4.4.6"
+    react-rnd: "npm:^10.4.13"
     typescript: "npm:^5"
     zod: "npm:^3.23.8"
   languageName: unknown
@@ -3462,6 +3474,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"re-resizable@npm:6.10.0":
+  version: 6.10.0
+  resolution: "re-resizable@npm:6.10.0"
+  peerDependencies:
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
+  checksum: 10c0/64a3730cdb82da3738d4252518caa40996e30623f48e326ff3c67d7ee06781e6e197797d90e5955c2d4d04c324cb03271d0494115d890fd2e47cc19655f676b9
+  languageName: node
+  linkType: hard
+
+"re-resizable@npm:^6.10.1":
+  version: 6.10.1
+  resolution: "re-resizable@npm:6.10.1"
+  peerDependencies:
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
+  checksum: 10c0/923cc46802b50d4198ea164e5be26aacf87050354769a41c3829dfa8fdafb07c418c6dfd0973597ea447122deb3b0fa14b29fc59a9e0a8553159b9bc89dac1b6
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:19.0.0-rc-66855b96-20241106":
   version: 19.0.0-rc-66855b96-20241106
   resolution: "react-dom@npm:19.0.0-rc-66855b96-20241106"
@@ -3473,7 +3505,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-draggable@npm:^4.4.6":
+"react-draggable@npm:4.4.6, react-draggable@npm:^4.4.6":
   version: 4.4.6
   resolution: "react-draggable@npm:4.4.6"
   dependencies:
@@ -3497,6 +3529,20 @@ __metadata:
   version: 18.3.1
   resolution: "react-is@npm:18.3.1"
   checksum: 10c0/f2f1e60010c683479e74c63f96b09fb41603527cd131a9959e2aee1e5a8b0caf270b365e5ca77d4a6b18aae659b60a86150bb3979073528877029b35aecd2072
+  languageName: node
+  linkType: hard
+
+"react-rnd@npm:^10.4.13":
+  version: 10.4.13
+  resolution: "react-rnd@npm:10.4.13"
+  dependencies:
+    re-resizable: "npm:6.10.0"
+    react-draggable: "npm:4.4.6"
+    tslib: "npm:2.6.2"
+  peerDependencies:
+    react: ">=16.3.0"
+    react-dom: ">=16.3.0"
+  checksum: 10c0/cdeac01f9c01259eab15ace07d8dc82726e9116f12b391bbcadb1a7019f03b2e8a2861dbda5b1bef4437397b39b446f3d360b6f5b8d40317ac83229b7b872fe5
   languageName: node
   linkType: hard
 
@@ -4081,6 +4127,13 @@ __metadata:
     minimist: "npm:^1.2.6"
     strip-bom: "npm:^3.0.0"
   checksum: 10c0/5b4f301a2b7a3766a986baf8fc0e177eb80bdba6e396792ff92dc23b5bca8bb279fc96517dcaaef63a3b49bebc6c4c833653ec58155780bc906bdbcf7dda0ef5
+  languageName: node
+  linkType: hard
+
+"tslib@npm:2.6.2":
+  version: 2.6.2
+  resolution: "tslib@npm:2.6.2"
+  checksum: 10c0/e03a8a4271152c8b26604ed45535954c0a45296e32445b4b87f8a5abdb2421f40b59b4ca437c4346af0f28179780d604094eb64546bee2019d903d01c6c19bdb
   languageName: node
   linkType: hard
 
