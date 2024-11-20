@@ -1,10 +1,9 @@
 'use client'
 import { Chat, Close, Refresh } from "@mui/icons-material";
-import { Box, Button, Fab, Fade, IconButton, Paper, Stack, TextField, Typography, useTheme } from "@mui/material";
+import { Box, Button, Fab, Fade, IconButton, Paper, Stack, SxProps, TextField, Theme, Typography, useTheme } from "@mui/material";
 import { useChat, Message } from "ai/react"
 import { useEffect, useRef, useState } from "react";
-import Draggable from 'react-draggable';
-import { Resizable } from "re-resizable";
+import { Rnd } from "react-rnd";
 
 export default function ChatComponenet() {
 
@@ -15,6 +14,24 @@ export default function ChatComponenet() {
   const { input, handleInputChange, handleSubmit, messages, setMessages } = useChat();
   const [open, setOpen] = useState(true);
   const [draggableKey, setDraggableKey] = useState(Math.random())
+  // Start with null or consistent initial position
+  const [defaultPosition, setDefaultPosition] = useState({
+    x: 50,
+    y: 50,
+    width: 600,
+    height: 600
+  });
+
+  // Calculate position after initial render
+  useEffect(() => {
+    setDefaultPosition({
+      x: window.innerWidth - 600 - 50,
+      y: window.innerHeight - 600 - 50,
+      width: 600,
+      height: 600
+    });
+    setDraggableKey(Math.random())
+  }, []);
 
   const handleOpen = () => {
     setOpen(true);
@@ -23,7 +40,7 @@ export default function ChatComponenet() {
   const handleClose = () => setOpen(false);
 
   const messageRef = useRef<HTMLDivElement>(null)
-  const paperRef = useRef<HTMLDivElement>(null)
+  // const paperRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
   //Focus input when chat window opened
@@ -71,79 +88,82 @@ export default function ChatComponenet() {
       </Box>
     )
   }
-
-  const paperStyle = {
-    pointerEvents: 'auto',
-    position: 'absolute',
-    bottom: 16,
-    right: 16,
-    zIndex: 1000
-  };
-
   const theme = useTheme()
+
+  const paperStyle: SxProps<Theme> = {
+    pointerEvents: 'auto',
+    boxSizing: "border-box",
+    width: '100%',
+    height: '100%',
+    padding: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column'
+  };
+  
+
 
   return (
     <Box height={'100vh'} width={'100vw'} position={"fixed"} top={0} left={0} sx={{ pointerEvents: 'none' }} id="outerbox">
       {/* Chat window */}
-      <Draggable
-        key={draggableKey}
-        handle="#drag-surface"
-        nodeRef={paperRef}
-        bounds={"parent"}
-      >
-        <Fade in={open}>
-          <Paper elevation={5} sx={paperStyle} ref={paperRef}>
-            <Resizable
-              defaultSize={{ width: 600, height: 600 }}
-              minHeight={600}
-              minWidth={600}
-              style={{ padding: theme.spacing(2), display: 'flex', flexDirection: 'column' }}
-            >
-              <Stack direction={"row"}>
-                <Typography variant="h4" flexGrow={1} id='drag-surface' sx={{ cursor: "move" }}>FactorChat</Typography>
-                <IconButton onClick={handleClose}>
-                  <Close />
-                </IconButton>
-              </Stack>
-              {/* The Chat */}
-              <Stack ref={messageRef} gap={2} flexGrow={1} overflow={"auto"}>
-                {messages.map((message: Message) => {
-                  return (
-                    <Message {...message} key={message.id} />
-                  )
-                })}
-              </Stack>
-              {/* The Input */}
-              <form
-                className="mt-3"
-                onSubmit={handleSubmit}
-              >
-                <TextField
-                  inputRef={inputRef}
-                  placeholder={"Ask a question to FactorChat"}
-                  fullWidth
-                  multiline
-                  value={input}
-                  onChange={handleInputChange}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" && !e.shiftKey) {
-                      handleSubmit(e)
-                    }
-                  }}
-                />
-                <Stack direction={"row"} justifyContent={"space-between"} mt={2}>
-                  <Button variant="contained" type="submit">
-                    Send Message
-                  </Button>
-                  <Button variant="contained" onClick={handleClearMessages} disabled={messages.length === 0} endIcon={<Refresh />}>
-                    Restart Conversation
-                  </Button>
+      {open &&
+        <Rnd
+          key={draggableKey}
+          dragHandleClassName="drag-surface"
+          default={defaultPosition}
+          minHeight={500}
+          minWidth={500}
+          style={{ display: 'flex', flexDirection: 'column', pointerEvents: 'auto', zIndex: 1000 }}
+        >
+          <Fade in={open}>
+            <Paper elevation={5} sx={{ ...paperStyle }} >
+              {/* <Stack> */}
+                <Stack direction={"row"}>
+                  <Typography variant="h4" flexGrow={1} className='drag-surface' sx={{ cursor: "move" }}>FactorChat</Typography>
+                  <IconButton onClick={handleClose}>
+                    <Close />
+                  </IconButton>
                 </Stack>
-              </form>
-            </Resizable>
-          </Paper>
-        </Fade>
-      </Draggable>
+                {/* The Chat */}
+                <Stack ref={messageRef} gap={2} flexGrow={1} overflow={"auto"}>
+                  {messages.map((message: Message) => {
+                    return (
+                      <Message {...message} key={message.id} />
+                    )
+                  })}
+                </Stack>
+                {/* The Input */}
+                <form
+                  className="mt-3"
+                  onSubmit={handleSubmit}
+                >
+                  <TextField
+                    inputRef={inputRef}
+                    placeholder={"Ask a question to FactorChat"}
+                    fullWidth
+                    multiline
+                    value={input}
+                    onChange={handleInputChange}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.shiftKey) {
+                        handleSubmit(e)
+                      }
+                    }}
+                  />
+                  <Stack direction={"row"} justifyContent={"space-between"} mt={2}>
+                    <Button variant="contained" type="submit">
+                      Send Message
+                    </Button>
+                    <Button variant="contained" onClick={handleClearMessages} disabled={messages.length === 0} endIcon={<Refresh />}>
+                      Restart Conversation
+                    </Button>
+                  </Stack>
+                </form>
+              {/* </Stack> */}
+              {/* </Box> */}
+            </Paper>
+          </Fade>
+        </Rnd>
+      }
       {/* Icon to open chat */}
       <Fade in={!open}>
         <Fab

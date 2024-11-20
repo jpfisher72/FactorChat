@@ -2251,10 +2251,8 @@ __metadata:
     eslint: "npm:^8"
     eslint-config-next: "npm:15.0.3"
     next: "npm:15.0.3"
-    re-resizable: "npm:^6.10.1"
     react: "npm:19.0.0-rc-66855b96-20241106"
     react-dom: "npm:19.0.0-rc-66855b96-20241106"
-    react-draggable: "npm:^4.4.6"
     react-rnd: "npm:^10.4.13"
     typescript: "npm:^5"
     zod: "npm:^3.23.8"
@@ -3484,16 +3482,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"re-resizable@npm:^6.10.1":
-  version: 6.10.1
-  resolution: "re-resizable@npm:6.10.1"
-  peerDependencies:
-    react: ^16.13.1 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/923cc46802b50d4198ea164e5be26aacf87050354769a41c3829dfa8fdafb07c418c6dfd0973597ea447122deb3b0fa14b29fc59a9e0a8553159b9bc89dac1b6
-  languageName: node
-  linkType: hard
-
 "react-dom@npm:19.0.0-rc-66855b96-20241106":
   version: 19.0.0-rc-66855b96-20241106
   resolution: "react-dom@npm:19.0.0-rc-66855b96-20241106"
@@ -3505,7 +3493,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-draggable@npm:4.4.6, react-draggable@npm:^4.4.6":
+"react-draggable@npm:4.4.6":
   version: 4.4.6
   resolution: "react-draggable@npm:4.4.6"
   dependencies:
