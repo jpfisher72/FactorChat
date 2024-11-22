@@ -1,17 +1,15 @@
 'use client'
-import { Chat, Close, Info, InfoOutlined, Minimize, Refresh, Send } from "@mui/icons-material";
+import { Chat, Close, InfoOutlined, Minimize, Refresh, Send } from "@mui/icons-material";
 import { Box, Button, Divider, Fab, Fade, IconButton, Paper, Stack, SxProps, TextField, Theme, Tooltip, Typography, useTheme } from "@mui/material";
-import { useChat, Message } from "ai/react"
 import { useEffect, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
+import { useFactorChat } from "./useFactorChat";
+import { FactorChatMessage } from "./types";
+import { Message } from "./Message";
+import { LoadingMessage } from "./LoadingMessage";
 
 export default function ChatComponenet() {
-
-  // https://m2.material.io/inline-tools/color/
-
-
-  //https://sdk.vercel.ai/docs/reference/ai-sdk-ui/use-chat#usechat
-  const { input, handleInputChange, handleSubmit, messages, setMessages } = useChat();
+  const { input, handleInputChange, handleSubmit, messages, setMessages, loading } = useFactorChat();
   const [open, setOpen] = useState(true);
   const [draggableKey, setDraggableKey] = useState(Math.random())
   // Start with null or consistent initial position
@@ -75,41 +73,13 @@ export default function ChatComponenet() {
   useEffect(() => {
     const container = messageRef.current
     if (!container) return;
-
-    const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 50;
-    if (isNearBottom) {
-      container.scrollTop = container.scrollHeight;
-    }
+    
+    const shouldScroll = messages.at(-1)?.origin === "user"
+    if (shouldScroll) container.scrollTop = container.scrollHeight;
   }, [messages])
 
   const handleClearMessages = () => {
     setMessages([])
-  }
-
-  const Message = (message: Message) => {
-    const isUser = message.role === "user"
-
-    return (
-      <Paper
-        sx={{
-          p: 1,
-          margin: 0.5,
-          borderRadius: isUser ? '8px 8px 0px 8px' : '8px 8px 8px 0px',
-          maxWidth: '75%',
-          alignSelf: isUser ? "flex-end" : "flex-start",
-          bgcolor: isUser ? theme.palette.primary.main : 'lightgrey',
-          color: isUser ? theme.palette.primary.contrastText : 'inherit'
-        }}
-      >
-        {message.content.split("\n").map((currentTextBlock: string, index: number) => {
-          if (currentTextBlock === "") { //handle newlines
-            return <Typography key={message.id + index}>&nbsp;</Typography>
-          } else {
-            return <Typography key={message.id + index}>{currentTextBlock}</Typography>
-          }
-        })}
-      </Paper>
-    )
   }
 
   const theme = useTheme()
@@ -124,8 +94,6 @@ export default function ChatComponenet() {
     flexDirection: 'column',
     gap: theme.spacing(1)
   };
-
-
 
   return (
     <Box height={'100vh'} width={'100vw'} position={"fixed"} top={0} left={0} sx={{ pointerEvents: 'none' }}>
@@ -160,11 +128,12 @@ export default function ChatComponenet() {
             <Divider />
             {/* The Chat */}
             <Stack ref={messageRef} gap={2} flexGrow={1} overflow={"auto"}>
-              {messages.map((message: Message) => {
+              {messages.map((message: FactorChatMessage, i) => {
                 return (
-                  <Message {...message} key={message.id} />
+                  <Message {...message} key={"message-" + i} />
                 )
               })}
+              {loading && <LoadingMessage />}
             </Stack>
             {/* The Input */}
             <form
@@ -188,7 +157,7 @@ export default function ChatComponenet() {
                 }}
               />
               <Stack direction={"row"} justifyContent={"space-between"} mt={1}>
-                <Button variant="contained" type="submit" endIcon={<Send />}>
+                <Button variant="contained" type="submit" disabled={!input} endIcon={<Send />}>
                   Send Message
                 </Button>
                 <Button variant="contained" onClick={handleClearMessages} disabled={messages.length === 0} endIcon={<Refresh />}>
