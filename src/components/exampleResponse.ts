@@ -325,7 +325,7 @@ export const exampleResponse: FactorChatResponse = {
     {
       type: "logo",
       data: {
-        pwm: [
+        ppm: [
           [
             0,
             0.526316,

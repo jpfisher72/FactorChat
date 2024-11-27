@@ -17,7 +17,7 @@ export type BackendMessage = {
 
 export type MotifFigure = {
   type: "logo",
-  data: { pwm: number[][] }
+  data: { ppm: number[][] }
 }
 
 export type FactorChatFigure = (MotifFigure) //Add union type when more supported

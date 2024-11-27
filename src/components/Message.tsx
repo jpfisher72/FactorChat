@@ -10,7 +10,7 @@ import { useState, useEffect, useMemo } from "react";
 
 const Figure = (figure: FactorChatFigure) => {
   switch (figure.type) {
-    case "logo": return <DNALogo ppm={figure.data.pwm} />
+    case "logo": return <DNALogo ppm={figure.data.ppm} />
     default: return <Alert severity="warning">Issue displaying figure of type {figure.type}</Alert>
   }
 }
