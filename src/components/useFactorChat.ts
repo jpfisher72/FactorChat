@@ -26,28 +26,20 @@ export function useFactorChat() {
     //try getting response. If successful push new message, if not display error
     try {
       setLoading(true)
-      const res = await fetch('https://catfact.ninja/fact')
 
       // for sending POST with payload. Might need to modify headers or how the body is sent, not sure
-      // const res = await fetch('URL HERE', {
-      //   method: "POST",
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(newMessages)
-      // })
+      const res = await fetch('http://localhost:5000/api/chat', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newMessages)
+      })
 
       // Should change this to the type "FactorChatResponse" when receiving response from actual backend. See types.ts for definition
-      const backendMessage: any = await res.json()
+      const backendMessage: FactorChatResponse = await res.json()
 
-      // only necessary since data is not correct shape using dummy url.
-      const x: FactorChatResponse = {
-        text: backendMessage.fact,
-        files: [],
-        figures: []
-      }
-
-      setMessages([...newMessages, {origin: "backend", contents: x}])
+      setMessages([...newMessages, {origin: "backend", contents: backendMessage}])
     
     } catch (error) {
       console.error('Error:\n', error)
