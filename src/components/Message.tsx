@@ -7,6 +7,7 @@ import { FileDownloadOutlined } from "@mui/icons-material";
 import { DNALogo } from "logots-react";
 import { getFileSize } from "./helpers";
 import { useState, useEffect, useMemo } from "react";
+import Link from "next/link"
 
 const Figure = (figure: FactorChatFigure) => {
   switch (figure.type) {
@@ -42,11 +43,7 @@ export const Message = (message: FactorChatMessage) => {
         overrides={{
           ...getOverrides({}),
           a: {
-            component: 'a',
-            props : {
-              rel: "noopener noreferrer",
-              target: "_blank"
-            }
+            component: Link, //override <a> with Next.js <Link> to avoid hard navigation (resets chatbot state)
           }
         }}
       >

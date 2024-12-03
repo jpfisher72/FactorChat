@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FactorChatMessage, FactorChatResponse } from "./types";
+import { exampleResponse } from "./exampleResponse";
 
 export function useFactorChat() {
   const [messages, setMessages] = useState<FactorChatMessage[]>([])
@@ -37,7 +38,8 @@ export function useFactorChat() {
       const backendMessage: FactorChatResponse = await res.json()
 
       setMessages([...newMessages, {origin: "backend", contents: backendMessage}])
-    
+      // setMessages([...newMessages, {origin: "backend", contents: exampleResponse}])
+      
     } catch (error) {
       console.error('Error:\n', error)
       const errorMsg: FactorChatResponse = {

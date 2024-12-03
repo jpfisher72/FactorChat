@@ -1,5 +1,6 @@
 'use client'
 import { Box, Button, Typography } from "@mui/material";
+import Link from "next/link";
 import { ResizableBox } from "react-resizable";
 
 export default function Home() {
@@ -10,6 +11,9 @@ export default function Home() {
         <Button variant="contained" onClick={() => window.alert('clicked')}>
           Test
         </Button>
+        <Link href="/about">
+          About
+        </Link>
       </Box>
     </main>
   );
