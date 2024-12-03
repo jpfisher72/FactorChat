@@ -1,5 +1,5 @@
 import Markdown from "react-markdown" //todo remove one of these depending on which I decide to use
-import { MuiMarkdown } from 'mui-markdown'; //https://www.npmjs.com/package/mui-markdown
+import { getOverrides, MuiMarkdown } from 'mui-markdown'; //https://www.npmjs.com/package/mui-markdown
 import { MessageBubble } from "./MessageBubble"
 import { FactorChatFigure, FactorChatMessage } from "./types"
 import { Alert, Button, Typography } from "@mui/material";
@@ -38,7 +38,18 @@ export const Message = (message: FactorChatMessage) => {
 
   return (
     <MessageBubble isUser={isUser}>
-      <MuiMarkdown>
+      <MuiMarkdown
+        overrides={{
+          ...getOverrides({}),
+          a: {
+            component: 'a',
+            props : {
+              rel: "noopener noreferrer",
+              target: "_blank"
+            }
+          }
+        }}
+      >
         {contents}
       </MuiMarkdown>
       {figures.length > 0 && figures.map((figure, i) =>

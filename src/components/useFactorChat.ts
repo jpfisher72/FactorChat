@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FactorChatMessage, FactorChatResponse } from "./types";
-import { exampleResponse } from "@/components/exampleResponse";
 
 export function useFactorChat() {
   const [messages, setMessages] = useState<FactorChatMessage[]>([])
@@ -27,7 +26,6 @@ export function useFactorChat() {
     try {
       setLoading(true)
 
-      // for sending POST with payload. Might need to modify headers or how the body is sent, not sure
       const res = await fetch('http://localhost:5000/api/chat', {
         method: "POST",
         headers: {
@@ -36,7 +34,6 @@ export function useFactorChat() {
         body: JSON.stringify(newMessages)
       })
 
-      // Should change this to the type "FactorChatResponse" when receiving response from actual backend. See types.ts for definition
       const backendMessage: FactorChatResponse = await res.json()
 
       setMessages([...newMessages, {origin: "backend", contents: backendMessage}])
@@ -50,9 +47,6 @@ export function useFactorChat() {
       }
       setMessages([...newMessages, {origin: "backend", contents: errorMsg}])
     }
-
-    // For using example response
-    // setMessages([...newMessages, { origin: "backend", contents: exampleResponse }])
     
     setLoading(false)
   }
