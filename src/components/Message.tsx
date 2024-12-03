@@ -1,5 +1,5 @@
 import Markdown from "react-markdown" //todo remove one of these depending on which I decide to use
-import { MuiMarkdown } from 'mui-markdown'; //https://www.npmjs.com/package/mui-markdown
+import { getOverrides, MuiMarkdown } from 'mui-markdown'; //https://www.npmjs.com/package/mui-markdown
 import { MessageBubble } from "./MessageBubble"
 import { FactorChatFigure, FactorChatMessage } from "./types"
 import { Alert, Button, Typography } from "@mui/material";
@@ -7,6 +7,7 @@ import { FileDownloadOutlined } from "@mui/icons-material";
 import { DNALogo } from "logots-react";
 import { getFileSize } from "./helpers";
 import { useState, useEffect, useMemo } from "react";
+import Link from "next/link"
 
 const Figure = (figure: FactorChatFigure) => {
   switch (figure.type) {
@@ -38,7 +39,14 @@ export const Message = (message: FactorChatMessage) => {
 
   return (
     <MessageBubble isUser={isUser}>
-      <MuiMarkdown>
+      <MuiMarkdown
+        overrides={{
+          ...getOverrides({}),
+          a: {
+            component: Link, //override <a> with Next.js <Link> to avoid hard navigation (resets chatbot state)
+          }
+        }}
+      >
         {contents}
       </MuiMarkdown>
       {figures.length > 0 && figures.map((figure, i) =>

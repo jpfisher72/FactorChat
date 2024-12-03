@@ -1,4 +1,4 @@
-import { BackendMessage, FactorChatMessage, FactorChatResponse } from '@/components/types'
+import { FactorChatResponse } from '@/components/types'
 
 const examapleMD: string = `
 # Markdown: Syntax
