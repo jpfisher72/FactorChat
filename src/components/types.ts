@@ -15,10 +15,23 @@ export type BackendMessage = {
   contents: FactorChatResponse
 }
 
-export type MotifFigure = {
-  type: "logo",
-  data: { ppm: number[][] }
-}
+type MotifFigure = {
+  type: string;
+  data: {
+    ppm: number[][];
+    sites?: number;
+    e_value?: number;
+    original_peaks_occurrences?: number;
+    original_peaks?: number;
+    flank_occurrences_ratio?: number;
+    flank_z_score?: number;
+    flank_p_value?: number;
+    shuffled_occurrences_ratio?: number;
+    shuffled_z_score?: number;
+    shuffled_p_value?: number;
+  };
+};
+
 
 export type FactorChatFigure = (MotifFigure) //Add union type when more supported
 
