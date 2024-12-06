@@ -452,8 +452,18 @@ export const exampleResponse: FactorChatResponse = {
             0.236842,
             0.035088
           ]
-        ]
+        ],
+        sites: 23,
+        e_value: 0.000088,
+        original_peaks_occurrences: 7316,
+        original_peaks: 56903,
+        flank_occurrences_ratio: 0.071,
+        flank_z_score: -4.3064294382983,
+        flank_p_value: 0.00000829554098263907,
+        shuffled_occurrences_ratio: 0.04472,
+        shuffled_z_score: -2.88451508528409,
+        shuffled_p_value: 0.00196008488248889
       }
     }
   ]
-}
+};
