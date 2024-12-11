@@ -1,10 +1,11 @@
 .env*
-
+node_modules
 .next
 
 #yarn
 .yarn
 .pnp*
+.yarnrc.yml
 
 #vscode
 .vscode
