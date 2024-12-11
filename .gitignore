@@ -5,6 +5,7 @@ node_modules
 #yarn
 .yarn
 .pnp*
+.yarnrc.yml
 
 #vscode
 .vscode
